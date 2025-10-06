@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShubhVivah - Find Your Perfect Match</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-red: #d32f2f;
+            --dark-red: #b71c1c;
+            --gold: #ffb300;
+            --light-gold: #ffecb3;
+            --light-pink: #fce4ec;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --dark-gray: #424242;
+            --text-dark: #212121;
+            --success: #4caf50;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: var(--light-gray);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+            color: var(--white);
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo i {
+            color: var(--gold);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--gold);
+            color: var(--text-dark);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--light-gold);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--white);
+            color: var(--primary-red);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-red);
+            font-size: 2rem;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background-color: var(--gold);
+            margin: 0.5rem auto;
+        }
+
+        /* Profile Cards */
+        .profiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .profile-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .profile-image {
+            height: 200px;
+            background-color: var(--light-pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-red);
+            font-size: 4rem;
+        }
+
+        .profile-info {
+            padding: 1.5rem;
+        }
+
+        .profile-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-red);
+        }
+
+        .profile-details {
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+        }
+
+        .profile-interests {
+            font-style: italic;
+            color: var(--dark-gray);
+        }
+
+        /* Forms */
+        .form-container {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary-red);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* Matching Section */
+        .matching-section {
+            background-color: var(--light-pink);
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+        }
+
+        .matching-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-gray);
+            color: var(--white);
+            padding: 3rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--gold);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--gold);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 4px;
+            color: white;
+            font-weight: 600;
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.3s;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background-color: var(--success);
+        }
+
+        .notification.error {
+            background-color: var(--primary-red);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-heart"></i>
+                <span>ShubhVivah</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#profiles">Browse Profiles</a></li>
+                    <li><a href="#register">Register</a></li>
+                    <li><a href="#match">Find Matches</a></li>
+                    <li><a href="#success">Success Stories</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button class="btn btn-secondary" id="loginBtn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login
+                </button>
+                <button class="btn btn-primary" id="registerBtn">
+                    <i class="fas fa-user-plus"></i>
+                    Register
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Find Your Perfect Life Partner</h1>
+            <p>Join thousands of happy couples who found their match through ShubhVivah</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" id="heroRegisterBtn">
+                    <i class="fas fa-user-plus"></i>
+                    Create Profile
+                </button>
+                <button class="btn btn-secondary" id="heroBrowseBtn">
+                    <i class="fas fa-search"></i>
+                    Browse Profiles
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Register Profile Section -->
+        <section id="register">
+            <h2 class="section-title">Register Your Profile</h2>
+            <div class="form-container">
+                <form id="profileForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="name">Full Name</label>
+                            <input type="text" class="form-input" id="name" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="age">Age</label>
+                            <input type="number" class="form-input" id="age" placeholder="Enter your age" min="18" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="gender">Gender</label>
+                        <select class="form-select" id="gender" required>
+                            <option value="">Select your gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="interests">Interests & Hobbies</label>
+                        <input type="text" class="form-input" id="interests" placeholder="e.g., Reading, Traveling, Cooking" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-user-plus"></i>
+                        Register Profile
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Browse Profiles Section -->
+        <section id="profiles">
+            <h2 class="section-title">Browse Profiles</h2>
+            <div class="profiles-grid" id="profilesGrid">
+                <!-- Profiles will be loaded here dynamically -->
+            </div>
+            <div style="text-align: center;">
+                <button class="btn btn-primary" id="viewAllBtn">
+                    <i class="fas fa-users"></i>
+                    View All Profiles
+                </button>
+            </div>
+        </section>
+
+        <!-- Match Profiles Section -->
+        <section id="match">
+            <h2 class="section-title">Find Your Match</h2>
+            <div class="matching-section">
+                <div class="matching-form">
+                    <div class="form-group">
+                        <label class="form-label" for="preferredGender">Preferred Gender</label>
+                        <select class="form-select" id="preferredGender">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="minAge">Minimum Age</label>
+                        <input type="number" class="form-input" id="minAge" min="18" value="22">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="maxAge">Maximum Age</label>
+                        <input type="number" class="form-input" id="maxAge" min="18" value="35">
+                    </div>
+                </div>
+                <button class="btn btn-primary" id="findMatchesBtn" style="width: 100%;">
+                    <i class="fas fa-heart"></i>
+                    Find Matches
+                </button>
+            </div>
+            <div class="profiles-grid" id="matchesGrid">
+                <!-- Matching results will be displayed here -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About ShubhVivah</h3>
+                <p>ShubhVivah is a trusted matrimonial platform helping individuals find their perfect life partners since 2010.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#profiles">Browse Profiles</a></li>
+                    <li><a href="#register">Register</a></li>
+                    <li><a href="#match">Find Matches</a></li>
+                    <li><a href="#">Success Stories</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Matrimony Road, Mumbai, India</li>
+                    <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+                    <li><i class="fas fa-envelope"></i> info@shubhvivah.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 ShubhVivah Matrimonial Services. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <script>
+        // Sample profiles data
+        let profiles = [
+            {
+                name: "Priya Sharma",
+                age: 26,
+                gender: "Female",
+                interests: "Reading, Cooking, Traveling"
+            },
+            {
+                name: "Rahul Kumar",
+                age: 29,
+                gender: "Male",
+                interests: "Photography, Music, Sports"
+            },
+            {
+                name: "Anjali Patel",
+                age: 24,
+                gender: "Female",
+                interests: "Dancing, Painting, Yoga"
+            },
+            {
+                name: "Vikram Singh",
+                age: 32,
+                gender: "Male",
+                interests: "Business, Traveling, Technology"
+            }
+        ];
+
+        // DOM Elements
+        const profileForm = document.getElementById('profileForm');
+        const profilesGrid = document.getElementById('profilesGrid');
+        const matchesGrid = document.getElementById('matchesGrid');
+        const findMatchesBtn = document.getElementById('findMatchesBtn');
+        const viewAllBtn = document.getElementById('viewAllBtn');
+        const notification = document.getElementById('notification');
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProfiles();
+            
+            // Set up event listeners
+            profileForm.addEventListener('submit', registerProfile);
+            findMatchesBtn.addEventListener('click', findMatches);
+            viewAllBtn.addEventListener('click', loadProfiles);
+            
+            // Navigation buttons
+            document.getElementById('heroRegisterBtn').addEventListener('click', function() {
+                document.getElementById('register').scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            document.getElementById('heroBrowseBtn').addEventListener('click', function() {
+                document.getElementById('profiles').scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            document.getElementById('registerBtn').addEventListener('click', function() {
+                document.getElementById('register').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Load all profiles
+        function loadProfiles() {
+            profilesGrid.innerHTML = '';
+            
+            if (profiles.length === 0) {
+                profilesGrid.innerHTML = '<p style="text-align: center; grid-column: 1 / -1;">No profiles registered yet.</p>';
+                return;
+            }
+            
+            profiles.forEach(profile => {
+                const profileCard = createProfileCard(profile);
+                profilesGrid.appendChild(profileCard);
+            });
+        }
+
+        // Create profile card element
+        function createProfileCard(profile) {
+            const card = document.createElement('div');
+            card.className = 'profile-card';
+            
+            const genderIcon = profile.gender === 'Male' ? 'fas fa-mars' : 'fas fa-venus';
+            const iconColor = profile.gender === 'Male' ? '#2962ff' : '#d81b60';
+            
+            card.innerHTML = `
+                <div class="profile-image" style="color: ${iconColor};">
+                    <i class="${genderIcon}"></i>
+                </div>
+                <div class="profile-info">
+                    <h3 class="profile-name">${profile.name}</h3>
+                    <div class="profile-details">
+                        <p><strong>Age:</strong> ${profile.age}</p>
+                        <p><strong>Gender:</strong> ${profile.gender}</p>
+                    </div>
+                    <p class="profile-interests"><strong>Interests:</strong> ${profile.interests}</p>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // Register a new profile
+        function registerProfile(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const age = parseInt(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+            const interests = document.getElementById('interests').value;
+            
+            // Age validation
+            if (age < 18) {
+                showNotification('You must be 18 years or older to register.', 'error');
+                return;
+            }
+            
+            // Create new profile
+            const newProfile = {
+                name,
+                age,
+                gender,
+                interests
+            };
+            
+            // Add to profiles array
+            profiles.push(newProfile);
+            
+            // Reset form
+            profileForm.reset();
+            
+            // Show success message
+            showNotification('Profile registered successfully!', 'success');
+            
+            // Reload profiles
+            loadProfiles();
+        }
+
+        // Find matches based on criteria
+        function findMatches() {
+            const preferredGender = document.getElementById('preferredGender').value;
+            const minAge = parseInt(document.getElementById('minAge').value);
+            const maxAge = parseInt(document.getElementById('maxAge').value);
+            
+            // Validate minimum age
+            if (minAge < 18) {
+                showNotification('Minimum age must be 18 years or older.', 'error');
+                return;
+            }
+            
+            // Clear previous matches
+            matchesGrid.innerHTML = '';
+            
+            // Filter profiles based on criteria
+            const matches = profiles.filter(profile => 
+                profile.gender === preferredGender && 
+                profile.age >= minAge && 
+                profile.age <= maxAge
+            );
+            
+            // Display matches
+            if (matches.length === 0) {
+                matchesGrid.innerHTML = '<p style="text-align: center; grid-column: 1 / -1;">No matches found for your criteria.</p>';
+                return;
+            }
+            
+            matches.forEach(profile => {
+                const profileCard = createProfileCard(profile);
+                matchesGrid.appendChild(profileCard);
+            });
+            
+            showNotification(`Found ${matches.length} matches!`, 'success');
+        }
+
+        // Show notification
+        function showNotification(message, type) {
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
